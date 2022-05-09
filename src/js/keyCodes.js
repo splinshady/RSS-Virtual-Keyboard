@@ -1,5 +1,4 @@
-/* eslint-disable import/prefer-default-export */
-export const keyCodes = {
+const keyCodes = {
   0: {
     code: 'Backquote',
     descriptionEng: '§',
@@ -395,3 +394,5 @@ export const keyCodes = {
     description: '',
   },
 };
+
+export default keyCodes;

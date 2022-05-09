@@ -1,6 +1,4 @@
-/* eslint-disable no-unused-expressions */
-/* eslint-disable import/prefer-default-export */
-export class Key {
+class Key {
   constructor({
     code,
     descriptionEng = null,
@@ -27,8 +25,11 @@ export class Key {
       let hidden = '';
       if (this.id.substr(0, 3) === 'Key') {
         hidden += ' hidden';
+        template += `<span class="key-eng"><span class="key-eng__lower char">${this.descriptionEng}</span><span class="key-eng__upper${hidden} char">${this.descriptionEngCups}</span></span><span class="key__ru hidden"><span class="key-ru__lower char">${this.descriptionRu}</span><span class="key-ru__upper${hidden} char">${this.descriptionRuCups}</span></span>`;
+      } else {
+        hidden += ' hidden';
+        template += `<span class="key-eng"><span class="key-eng__lower char">${this.descriptionEng}</span><span class="key-eng__upper${hidden} char">${this.descriptionEngCups}</span></span><span class="key__ru hidden"><span class="key-ru__lower char">${this.descriptionRu}</span><span class="key-ru__upper${hidden} char">${this.descriptionRuCups}</span></span>`;
       }
-      template += `<span class="key-eng"><span class="key-eng__lower${hidden}">${this.descriptionEng}</span><span class="key-eng__upper">${this.descriptionEngCups}</span></span><span class="key__ru hidden"><span class="key-eng__lower">${this.descriptionRu}</span><span class="key-eng__upper">${this.descriptionRuCups}</span></span>`;
     }
 
     if (this.id === 'ArrowUp') {
@@ -81,11 +82,27 @@ export class Key {
           break;
       }
       article.className += classControl;
-      template += `<span class=${this.description}><span>${this.description}</span></span>`;
+      template += `${this.description}`;
     }
 
     article.innerHTML = template;
 
+    article.addEventListener('mousedown', (event) => {
+      const { target } = event;
+      let value = '';
+      value = target.innerHTML;
+      article.classList.toggle('active');
+
+      const textarea = document.querySelector('.textarea');
+      textarea.value += value;
+    });
+
+    article.addEventListener('mouseup', () => {
+      article.classList.toggle('active');
+    });
+
     return article;
   }
 }
+
+export default Key;
