@@ -25,10 +25,24 @@ class Key {
       let hidden = '';
       if (this.id.substr(0, 3) === 'Key') {
         hidden += ' hidden';
-        template += `<span class="key-eng"><span class="key-eng__lower char">${this.descriptionEng}</span><span class="key-eng__upper${hidden} char">${this.descriptionEngCups}</span></span><span class="key__ru hidden"><span class="key-ru__lower char">${this.descriptionRu}</span><span class="key-ru__upper${hidden} char">${this.descriptionRuCups}</span></span>`;
+        template += `<span class="key-eng">
+                       <span class="key-eng__lower char">${this.descriptionEng}</span>
+                       <span class="key-eng__upper${hidden} char">${this.descriptionEngCups}</span>
+                     </span>
+                     <span class="key__ru hidden">
+                       <span class="key-ru__lower char">${this.descriptionRu}</span>
+                       <span class="key-ru__upper${hidden} char">${this.descriptionRuCups}</span>
+                     </span>`;
       } else {
         hidden += ' hidden';
-        template += `<span class="key-eng"><span class="key-eng__lower char">${this.descriptionEng}</span><span class="key-eng__upper${hidden} char">${this.descriptionEngCups}</span></span><span class="key__ru hidden"><span class="key-ru__lower char">${this.descriptionRu}</span><span class="key-ru__upper${hidden} char">${this.descriptionRuCups}</span></span>`;
+        template += `<span class="key-eng">
+                        <span class="key-eng__lower char">${this.descriptionEng}</span>
+                        <span class="key-eng__upper${hidden} char">${this.descriptionEngCups}</span>
+                     </span>
+                     <span class="key__ru hidden">
+                        <span class="key-ru__lower char">${this.descriptionRu}</span>
+                        <span class="key-ru__upper${hidden} char">${this.descriptionRuCups}</span>
+                     </span>`;
       }
     }
 

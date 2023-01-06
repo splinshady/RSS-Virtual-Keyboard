@@ -4,22 +4,13 @@ import keyCodes from './js/keyCodes';
 import renderKeyboard from './js/renderKeyboard';
 import pushValue from './js/pushValue';
 
-const p = new Promise((resolve) => {
-  generateBody();
-  resolve();
-});
-
-p.then(() => {
-  if (keyCodes) {
-    renderKeyboard(keyCodes);
-  }
-});
+generateBody();
+renderKeyboard(keyCodes);
 
 const textarea = document.querySelector('.textarea');
 
 const arrChars = [];
 document.addEventListener('keydown', (event) => {
-  console.log(event.code);
   const { code } = event;
   arrChars.push(code);
 
