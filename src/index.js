@@ -10,6 +10,7 @@ renderKeyboard(keyCodes);
 const textarea = document.querySelector('.textarea');
 
 const arrChars = [];
+
 document.addEventListener('keydown', (event) => {
   const { code } = event;
   arrChars.push(code);
@@ -83,4 +84,48 @@ document.addEventListener('keyup', (event) => {
   }
 
   arrChars.length = 0;
+});
+
+document.addEventListener('mousedown', (event) => {
+  const code = event.target.id;
+  arrChars.push(code);
+
+  const article = document.getElementById(code);
+  if (!article) return;
+  if (code !== 'CapsLock') {
+    event.preventDefault();
+    article.classList.add('active');
+  }
+
+  if (!article.classList.contains('_control')) {
+    pushValue(code);
+  }
+
+  if (code === 'Enter') {
+    textarea.value += '\n';
+  }
+
+  if (code === 'Tab') {
+    textarea.value += '    ';
+  }
+
+  if (code === 'ShiftLeft' || code === 'ShiftRight') {
+    const char = document.querySelectorAll('.char');
+    char.forEach((element) => {
+      element.classList.toggle('hidden');
+    });
+  }
+
+  if (code === 'CapsLock') {
+    article.classList.toggle('active');
+    const char = document.querySelectorAll('.char');
+    char.forEach((element) => {
+      element.classList.toggle('hidden');
+    });
+  }
+
+  if (code === 'Backspace') {
+    const value = textarea.value.toString();
+    textarea.value = value.slice(0, -1);
+  }
 });

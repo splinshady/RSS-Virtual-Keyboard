@@ -102,9 +102,9 @@ class Key {
     article.innerHTML = template;
 
     article.addEventListener('mousedown', (event) => {
+      if (article.classList.contains('_control')) return;
       const { target } = event;
-      let value = '';
-      value = target.innerHTML;
+      const value = target.innerHTML;
       article.classList.toggle('active');
 
       const textarea = document.querySelector('.textarea');
