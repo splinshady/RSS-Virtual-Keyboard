@@ -164,9 +164,9 @@ class Key {
     article.innerHTML = template;
 
     article.addEventListener('mousedown', (event) => {
+      if (article.classList.contains('_control')) return;
       const { target } = event;
-      let value = '';
-      value = target.innerHTML;
+      const value = target.innerHTML;
       article.classList.toggle('active');
 
       const textarea = document.querySelector('.textarea');
@@ -746,6 +746,7 @@ __webpack_require__.r(__webpack_exports__);
 const textarea = document.querySelector('.textarea');
 
 const arrChars = [];
+
 document.addEventListener('keydown', (event) => {
   const { code } = event;
   arrChars.push(code);
@@ -791,6 +792,82 @@ document.addEventListener('keydown', (event) => {
 
 document.addEventListener('keyup', (event) => {
   const { code } = event;
+  const article = document.getElementById(code);
+  if (code !== 'CapsLock') {
+    article.classList.remove('active');
+  }
+
+  if (arrChars.includes('Space') && (arrChars.includes('AltLeft') || arrChars.includes('AltRight'))) {
+    const keysEng = document.querySelectorAll('.key-eng');
+    const keysRu = document.querySelectorAll('.key__ru');
+    keysEng.forEach((element) => {
+      element.classList.toggle('hidden');
+    });
+    keysRu.forEach((element) => {
+      element.classList.toggle('hidden');
+    });
+  }
+
+  if (code === 'ShiftLeft' || code === 'ShiftRight') {
+    const char = document.querySelectorAll('.char');
+    char.forEach((element) => {
+      element.classList.toggle('hidden');
+    });
+  }
+
+  if (code === 'Space' && arrChars.length === 1) {
+    textarea.value += ' ';
+  }
+
+  arrChars.length = 0;
+});
+
+document.addEventListener('mousedown', (event) => {
+  const code = event.target.id;
+  arrChars.push(code);
+
+  const article = document.getElementById(code);
+  if (!article) return;
+  if (code !== 'CapsLock') {
+    event.preventDefault();
+    article.classList.add('active');
+  }
+
+  if (!article.classList.contains('_control')) {
+    (0,_js_pushValue__WEBPACK_IMPORTED_MODULE_4__["default"])(code);
+  }
+
+  if (code === 'Enter') {
+    textarea.value += '\n';
+  }
+
+  if (code === 'Tab') {
+    textarea.value += '    ';
+  }
+
+  if (code === 'ShiftLeft' || code === 'ShiftRight') {
+    const char = document.querySelectorAll('.char');
+    char.forEach((element) => {
+      element.classList.toggle('hidden');
+    });
+  }
+
+  if (code === 'CapsLock') {
+    article.classList.toggle('active');
+    const char = document.querySelectorAll('.char');
+    char.forEach((element) => {
+      element.classList.toggle('hidden');
+    });
+  }
+
+  if (code === 'Backspace') {
+    const value = textarea.value.toString();
+    textarea.value = value.slice(0, -1);
+  }
+});
+
+document.addEventListener('mouseup', (event) => {
+  const code = event.target.id;
   const article = document.getElementById(code);
   if (code !== 'CapsLock') {
     article.classList.remove('active');
