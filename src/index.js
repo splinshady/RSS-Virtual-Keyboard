@@ -129,3 +129,35 @@ document.addEventListener('mousedown', (event) => {
     textarea.value = value.slice(0, -1);
   }
 });
+
+document.addEventListener('mouseup', (event) => {
+  const code = event.target.id;
+  const article = document.getElementById(code);
+  if (code !== 'CapsLock') {
+    article.classList.remove('active');
+  }
+
+  if (arrChars.includes('Space') && (arrChars.includes('AltLeft') || arrChars.includes('AltRight'))) {
+    const keysEng = document.querySelectorAll('.key-eng');
+    const keysRu = document.querySelectorAll('.key__ru');
+    keysEng.forEach((element) => {
+      element.classList.toggle('hidden');
+    });
+    keysRu.forEach((element) => {
+      element.classList.toggle('hidden');
+    });
+  }
+
+  if (code === 'ShiftLeft' || code === 'ShiftRight') {
+    const char = document.querySelectorAll('.char');
+    char.forEach((element) => {
+      element.classList.toggle('hidden');
+    });
+  }
+
+  if (code === 'Space' && arrChars.length === 1) {
+    textarea.value += ' ';
+  }
+
+  arrChars.length = 0;
+});
